@@ -1,0 +1,26 @@
+pipeline 
+{
+    agent any
+     stages 
+    {
+        stage('git to jenkins')
+        {
+            steps 
+            {
+                checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[credentialsId: 'c0e6b72c-a658-4f1e-813a-06cd13f9f670', url: 'https://github.com/Hemanthsrk/project666.git']])
+            }
+        }
+            stage('build')
+            {
+                steps 
+                {
+                     sh ''' mvn validate
+                            mvn compile
+                            mvn test
+                            mvn package '''
+                }
+            }
+            
+    }
+}
+
